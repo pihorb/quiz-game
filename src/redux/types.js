@@ -1,0 +1,16 @@
+export const USER_LOGIN = 'USER_LOGIN'
+export const HIDE_ALERT = 'HIDE_ALERT'
+export const SHOW_ALERT = 'SHOW_ALERT'
+export const FETCH_QUESTIONS = 'FETCH_QUESTIONS'
+export const SELECT_QUESTION = 'SELECT_QUESTION'
+export const SET_ANSWER = 'SET_ANSWER'
+export const ADD_SCORE = 'ADD_SCORE'
+export const PREVIOUS_QUESTION = 'PREVIOUS_QUESTION'
+export const NEXT_QUESTION = 'NEXT_QUESTION'
+export const UPDATE_TOTAL_ANSWERS = 'UPDATE_TOTAL_ANSWERS'
+export const NEW_GAME = 'NEW_GAME'
+export const CORRECT_ANSWER = 'CORRECT_ANSWER'
+
+
+
+
