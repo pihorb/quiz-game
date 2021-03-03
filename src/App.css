@@ -1,6 +1,7 @@
 body {
   width: 100vw;
   height: 100vh;
+  overflow: hidden;
   background-image: linear-gradient(to top, #a8edea 0%, #fed6e3 100%);
 }
 
@@ -13,9 +14,9 @@ body {
 }
 
 a {
-  text-decoration: none
+  text-decoration: none;
 }
 
 a:active {
-  color: black
+  color: black;
 }

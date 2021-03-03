@@ -1,30 +1,26 @@
 import React, { useEffect } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
-import { fetchQuestions, nextQuestion, previousQuestion } from '../../redux/actions'
+import { ActionCreators } from '../../redux/actions'
 import Question from '../Question/Question'
+import { size } from 'lodash'
 import './Quiz.sass'
 
 const Quiz = () => {
   const dispatch = useDispatch()
   const quiz = useSelector((state) => state.quiz.questions)
-  let question = useSelector((state) => state.quiz.currentQuestion)
-  
+  const question = useSelector((state) => state.quiz.currentQuestion)
+
   useEffect(() => {
-    dispatch(fetchQuestions())
+    dispatch(ActionCreators.fetchQuestions())
   }, [dispatch])
 
-  if (!quiz.length) {
+  const switchQuestion = (event) =>
+    event.target.getAttribute('data-attr') === 'prev'
+      ? dispatch(ActionCreators.previousQuestion())
+      : dispatch(ActionCreators.nextQuestion())
+
+  if (size(quiz) < 1) {
     return <h1>Spinner</h1>
-  }
-
-  const switchQuestion = (event) => {
-    let choice = event.target.getAttribute('data-attr')
-
-    if (choice === 'prev') {
-      dispatch(previousQuestion())
-    } else {
-      dispatch(nextQuestion())
-    }
   }
 
   return (
@@ -38,10 +34,7 @@ const Quiz = () => {
       >
         &#60;
       </div>
-      <Question
-        question={quiz[question]}
-        key={Date.now().toString()}
-      />
+      <Question question={quiz[question]} key={Date.now().toString()} />
       <div
         data-attr="next"
         onClick={switchQuestion}

@@ -1,66 +1,56 @@
-import {
-  FETCH_QUESTIONS,
-  SET_ANSWER,
-  ADD_SCORE,
-  PREVIOUS_QUESTION,
-  NEXT_QUESTION,
-  UPDATE_TOTAL_ANSWERS,
-  NEW_GAME,
-  CORRECT_ANSWER
-} from './types'
+import { actionTypes } from '../types'
+import { MAX_QUESTIONS } from '../../helpers/constans'
 
 const initState = {
-  questions: [],
-  currentQuestion: 0,
   score: 0,
+  questions: [],
   answersTotal: 0,
   correctAnswer: '',
+  currentQuestion: 0,
 }
 
 export const quizReducer = (state = initState, action) => {
   switch (action.type) {
-    case FETCH_QUESTIONS:
-      const res = [action.payload][0]
+    case actionTypes.FETCH_QUESTIONS:
       return {
         ...state,
-        questions: state.questions.concat(res),
+        questions: action.payload,
       }
-    case PREVIOUS_QUESTION:
+    case actionTypes.PREVIOUS_QUESTION:
       return {
         ...state,
         currentQuestion: state.currentQuestion - 1,
       }
-    case NEXT_QUESTION:
+    case actionTypes.NEXT_QUESTION:
       return {
         ...state,
         currentQuestion:
-          state.answersTotal === 10
+          state.answersTotal === MAX_QUESTIONS
             ? state.currentQuestion
             : state.currentQuestion + 1,
       }
-    case SET_ANSWER:
+    case actionTypes.SET_ANSWER:
       return {
         ...state,
-        questions: state.questions.map((q, i) => {
-          if (i === state.currentQuestion) {
-            return { ...q, user_answer: action.payload }
-          }
-          return q
+        questions: state.questions.map((q, index) => {
+          return index === state.currentQuestion
+            ? { ...q, user_answer: action.payload }
+            : q
         }),
       }
-    case ADD_SCORE:
+    case actionTypes.ADD_SCORE:
       return { ...state, score: state.score + 1 }
-    case UPDATE_TOTAL_ANSWERS:
+    case actionTypes.UPDATE_TOTAL_ANSWERS:
       return {
         ...state,
         answersTotal: state.questions.filter((q) => q.user_answer).length,
       }
-    case CORRECT_ANSWER:
+    case actionTypes.CORRECT_ANSWER:
       return {
         ...state,
         correctAnswer: action.payload,
       }
-    case NEW_GAME:
+    case actionTypes.NEW_GAME:
       return {
         ...state,
         ...initState,

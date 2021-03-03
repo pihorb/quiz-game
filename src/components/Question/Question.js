@@ -3,7 +3,7 @@ import { useDispatch } from 'react-redux'
 import _ from 'underscore'
 
 import './Question.sass'
-import { setAnswer, addScore } from '../../redux/actions'
+import { ActionCreators } from '../../redux/actions'
 import Score from '../Score/Score'
 
 const Question = ({ question: q }) => {
@@ -12,9 +12,11 @@ const Question = ({ question: q }) => {
   const handleAnswer = (event) => {
     const answer = event.target.value
 
-    dispatch(setAnswer(answer))
+    dispatch(ActionCreators.setAnswer(answer))
 
-    if(q.correct_answer === answer) dispatch(addScore())
+    if (q.correct_answer === answer) {
+      dispatch(ActionCreators.addScore())
+    }
   }
 
   return (
@@ -25,20 +27,24 @@ const Question = ({ question: q }) => {
       <div className="question-wrap__btns">
         <button
           onClick={handleAnswer}
-          value='True'
+          value="True"
           data-choosen={q.user_answer === 'True'}
           data-disabled={q.user_answer ? true : false}
-          data-correct={q.user_answer && q.correct_answer === 'True' ? true : false}
+          data-correct={
+            q.user_answer && q.correct_answer === 'True' ? true : false
+          }
           className="question-wrap__btn question-wrap__btn--true"
         >
           True
         </button>
         <button
           onClick={handleAnswer}
-          value='False'
+          value="False"
           data-choosen={q.user_answer === 'False'}
           data-disabled={q.user_answer ? true : false}
-          data-correct={q.user_answer && q.correct_answer === 'False' ? true : false}
+          data-correct={
+            q.user_answer && q.correct_answer === 'False' ? true : false
+          }
           className={`question-wrap__btn question-wrap__btn--false`}
         >
           False

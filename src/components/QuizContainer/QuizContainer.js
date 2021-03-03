@@ -4,9 +4,11 @@ import { Redirect } from 'react-router-dom'
 import Quiz from '../Quiz/Quiz'
 import Score from '../Score/Score'
 import './QuizContainer.sass'
+import { MAX_QUESTIONS } from '../../helpers/constans'
 
 const QuizContainer = ({ total, isLoggedIn }) => {
-  const result = total === 10 ? <Score /> : <Quiz />
+  const result = total === MAX_QUESTIONS ? <Score /> : <Quiz />
+
   if (!isLoggedIn) {
     return <Redirect to="login" />
   }

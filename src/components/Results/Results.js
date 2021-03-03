@@ -1,5 +1,5 @@
 import React from 'react'
 
-export default function Results() {
+export default () => {
   return <h1>Results</h1>
 }

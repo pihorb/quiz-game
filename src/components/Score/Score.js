@@ -1,18 +1,20 @@
 import React from 'react'
 import { connect } from 'react-redux'
 import { Redirect } from 'react-router-dom'
-import { startNewGame } from '../../redux/actions'
+import { ActionCreators } from '../../redux/actions'
 import './Score.sass'
 
 const Score = ({ user, score, startNewGame, total, isLoggedIn }) => {
   const handleClick = () => startNewGame()
+
   if (!isLoggedIn) {
     return <Redirect to="login" />
   }
+
   return (
     <div className="score-wrapper">
-      <div className='score-wrapper__name'>{user.username}</div>
-      <div className='score-wrapper__points'>
+      <div className="score-wrapper__name">{user.username}</div>
+      <div className="score-wrapper__points">
         Score: <span>{score}</span>
       </div>
       {total === 10 && (
@@ -32,7 +34,7 @@ const mapStateToProps = (state) => ({
 })
 
 const mapDispatchToProps = {
-  startNewGame,
+  startNewGame: ActionCreators.startNewGame,
 }
 
 export default connect(mapStateToProps, mapDispatchToProps)(Score)

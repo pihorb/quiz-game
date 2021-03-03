@@ -1,23 +1,23 @@
-import { SHOW_ALERT, HIDE_ALERT } from './types'
+import { actionTypes } from '../types'
 
 const initialState = {
   showAlert: false,
-  alert: null
+  alert: null,
 }
 
 export const appReducer = (state = initialState, action) => {
   switch (action.type) {
-    case SHOW_ALERT:
+    case actionTypes.SHOW_ALERT:
       return {
         ...state,
         showAlert: true,
-        alert: action.payload
+        alert: action.payload,
       }
-    case HIDE_ALERT:
+    case actionTypes.HIDE_ALERT:
       return {
         ...state,
         showAlert: false,
-        alert: null
+        alert: null,
       }
     default:
       return state
